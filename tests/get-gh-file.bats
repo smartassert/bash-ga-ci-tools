@@ -14,43 +14,39 @@ main() {
 }
 
 @test "$script_name: empty REPO fails" {
-  export VERSION="master"
-  export FILE_PATH="example.txt"
-
+  VERSION="master" \
+  FILE_PATH="example.txt" \
   run main
 
   assert_failure "3"
 }
 
 @test "$script_name: empty VERSION fails" {
-  export REPO="smartassert/bash-ga-ci-tools"
-  export FILE_PATH="example.txt"
-
+  REPO="smartassert/bash-ga-ci-tools" \
+  FILE_PATH="example.txt" \
   run main
 
   assert_failure "4"
 }
 
 @test "$script_name: empty FILE_PATH fails" {
-  export REPO="smartassert/bash-ga-ci-tools"
-  export VERSION="master"
-
+  REPO="smartassert/bash-ga-ci-tools" \
+  VERSION="master" \
   run main
 
   assert_failure "5"
 }
 
 @test "$script_name: remote response is 404" {
-  export REPO="smartassert/bash-ga-ci-tools"
-  export VERSION="master"
-  export FILE_PATH="example.txt"
-
   function curl() {
     echo "404"
   }
 
   export -f curl
 
+  REPO="smartassert/bash-ga-ci-tools" \
+  VERSION="master" \
+  FILE_PATH="example.txt" \
   run main
 
   assert_failure "6"
@@ -59,10 +55,6 @@ Status code: 404"
 }
 
 @test "$script_name: request is successful" {
-  export REPO="smartassert/bash-ga-ci-tools"
-  export VERSION="master"
-  export FILE_PATH="example.txt"
-
   export FILE_CONTENT="file content line 1
 file content line 2"
 
@@ -76,12 +68,12 @@ file content line 2"
 
   export -f curl
 
-  rm -f "$FILE_PATH"
-  assert_file_not_exist "$FILE_PATH"
-
+  REPO="smartassert/bash-ga-ci-tools" \
+  VERSION="master" \
+  FILE_PATH="example.txt" \
   run main
 
-  READ_FILE_CONTENT=$(<$FILE_PATH)
+  READ_FILE_CONTENT=$(<"$FILE_PATH")
   echo "$READ_FILE_CONTENT"
 
   assert_success
