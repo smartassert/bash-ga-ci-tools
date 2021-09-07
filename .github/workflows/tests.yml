@@ -20,3 +20,27 @@ jobs:
 
       - name: Run
         run: ./tests/node_modules/.bin/bats ./tests/*.bats
+
+  packer-install:
+    name: Packer installation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Verify packer is not installed
+        run: |
+          set +e
+
+          PACKER_VERSION_EXIT_CODE=$(packer --version)
+          if [ "127" != "$PACKER_VERSION_EXIT_CODE" ]; then
+            echo "packer --version failed with exit code: $PACKER_VERSION_EXIT_CODE"
+            exit "$PACKER_VERSION_EXIT_CODE"
+          fi
+
+      - name: call packer-install.sh
+        run: ./src/packer-install.sh
+
+      - name: Verify packer is installed
+        run: packer --version
