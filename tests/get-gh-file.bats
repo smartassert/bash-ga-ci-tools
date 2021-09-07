@@ -68,9 +68,11 @@ file content line 2"
 
   export -f curl
 
+  FILE_PATH="$PWD/example.txt"
+
   REPO="smartassert/bash-ga-ci-tools" \
   VERSION="master" \
-  FILE_PATH="example.txt" \
+  FILE_PATH="$FILE_PATH" \
   run main
 
   READ_FILE_CONTENT=$(<"$FILE_PATH")
