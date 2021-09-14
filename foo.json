@@ -1,0 +1,10 @@
+{
+  "chrome-runner-version": "0.18",
+  "compiler-version": "0.29",
+  "delegator-version": "0.6",
+  "firefox-runner-version": "0.18",
+  "should-deploy": "false",
+  "snapshot-name": "pull-request-232",
+  "version": "master",
+  "worker-version": "0.5"
+}
