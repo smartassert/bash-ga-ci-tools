@@ -56,14 +56,12 @@ main() {
   run main
 
   assert_success
-  assert_output "key1=value1
-key2=value2
-key3=value3"
+  assert_output "key1=value1 key2=value2 key3=value3 "
 }
 
-@test "$script_name: multiple key:value, gha output template" {
+@test "$script_name: multiple key:value, gha output template with newline separation" {
   INPUT='{"key1":"value1", "key2":"value2", "key3":"value3"}' \
-  TEMPLATE="::set-output name={{ key }}::{{ value }}" \
+  TEMPLATE="::set-output name={{ key }}::{{ value }}\n" \
   run main
 
   assert_success
